@@ -1,11 +1,14 @@
+package http;
+
+import common.HttpCodec;
+import common.HttpURL;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.util.Map;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 /**
  * @Author ws
@@ -16,7 +19,11 @@ public class HttpRequestBuilder {
 
 
     public static void buildRequest() throws IOException {
-        final HttpURL httpURL = new HttpURL("http://restapi.amap.com/v3/weather/weatherInfo?city=长沙&key=13cb58f5884f9749287abbead9c658f2");
+        // chunked分块编码请求测试
+        final HttpURL httpURL = new HttpURL("http://restapi.amap.com/v3/weather/weatherInfo");
+        // 带Content-Length的请求测试
+//        final common.HttpURL httpURL = new common.HttpURL("http://restapi.amap.com/v3/weather/weatherInfo?city=长沙&key=13cb58f5884f9749287abbead9c658f2");
+
         StringBuffer stringBuffer = new StringBuffer();
         // 请求行  GET city=长沙&key=13cb58f5884f9749287abbead9c658f2 HTTP/1.1
         stringBuffer.append("GET");
@@ -54,23 +61,25 @@ public class HttpRequestBuilder {
                 try {
                     //读一行  响应行
                     String responseLine = httpCodec.readLine(inputStream);
-                    System.out.println("响应行：" + responseLine);
+                    System.out.print("响应行：" + responseLine);
 
                     //读响应头
                     Map<String, String> headers = httpCodec.readHeaders(inputStream);
                     for (Map.Entry<String, String> entry : headers.entrySet()) {
-                        System.out.println(entry.getKey() + ": " + entry.getValue());
+                        System.out.print(entry.getKey() + ": " + entry.getValue());
                     }
 
                     //读响应体 ? 需要区分是以 Content-Length 还是以 Chunked分块编码
                     if (headers.containsKey("Content-Length")) {
-                        int length = Integer.valueOf(headers.get("Content-Length"));
+                        String s = headers.get("Content-Length");
+                        // 截掉 Content-Length: 451/r/n  后面的/r/n,拿到451
+                        int length = Integer.valueOf(s.substring(0,s.length()-2));
                         byte[] bytes = httpCodec.readBytes(inputStream, length);
-                        System.out.println("响应:" + new String(bytes));
+                        System.out.print("响应:" + new String(bytes));
                     } else {
                         //分块编码
                         String response = httpCodec.readChunked(inputStream);
-                        System.out.println("响应:" + response);
+                        System.out.print("响应:" + response);
                     }
                 } catch (IOException ioException) {
                     ioException.printStackTrace();

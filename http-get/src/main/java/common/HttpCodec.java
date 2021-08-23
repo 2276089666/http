@@ -1,3 +1,5 @@
+package common;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.ByteBuffer;
@@ -43,8 +45,8 @@ public class HttpCodec {
             int index = line.indexOf(":");
             if (index > 0) {
                 String name = line.substring(0, index);
-                // ": "移动两位到 总长度减去两个("\r\n")
-                String value = line.substring(index + 2, line.length() - 2);
+                // ": "移动两位到
+                String value = line.substring(index + 2, line.length());
                 headers.put(name, value);
             }
         }
@@ -104,6 +106,18 @@ public class HttpCodec {
     }
 
 
+    /**
+     * 分块编码发送一段信息格式:  你好! 王胜
+     *
+     *                        3/r/n
+     *                        你好!
+     *                        2/r/n
+     *                        王胜
+     *                        0/r/n
+     * @param is
+     * @return
+     * @throws IOException
+     */
     public String readChunked(InputStream is) throws IOException {
         int len = -1;
         boolean isEmptyData = false;
