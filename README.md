@@ -53,7 +53,7 @@ Content-Type: application/json
 
 ```
 
-[测试代码](src\main\java\http\HttpRequestBuilder.java)
+[测试代码](http-get/src/main/java/http/HttpRequestBuilder.java)
 
 # HTTPS
 
@@ -61,5 +61,5 @@ Content-Type: application/json
 
 ![image-20210823143325864](README.assets/image-20210823143325864.png)
 
-[测试代码](src\main\java\https\HttpsRequestBuilder.java)
+[测试代码](http-get\src\main\java\https\HttpsRequestBuilder.java)
 
