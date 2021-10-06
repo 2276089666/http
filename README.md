@@ -21,6 +21,7 @@ Content-Length: 445
 Date: Mon, 23 Aug 2021 05:55:55 GMT
 Access-Control-Allow-Headers: DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,key,x-biz,x-info,platinfo,encr,enginever,gzipped,poiid
 Content-Type: application/json;charset=UTF-8
+
 {"status":"1","count":"2","info":"OK","infocode":"10000","lives":[{"province":"湖南","city":"长沙市","adcode":"430100","weather":"多云","temperature":"33","winddirection":"西南","windpower":"4","humidity":"61","reporttime":"2021-08-23 13:32:20"},{"province":"湖南","city":"长沙县","adcode":"430121","weather":"多云","temperature":"33","winddirection":"西南","windpower":"4","humidity":"61","reporttime":"2021-08-23 13:32:21"}]}
 
 ```
@@ -49,6 +50,7 @@ Vary: Accept-Encoding
 Date: Mon, 23 Aug 2021 06:31:31 GMT
 Access-Control-Allow-Headers: DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,key,x-biz,x-info,platinfo,encr,enginever,gzipped,poiid
 Content-Type: application/json
+
 {"status":"0","info":"INVALID_USER_KEY","infocode":"10001"}
 
 ```
